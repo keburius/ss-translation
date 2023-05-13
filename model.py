@@ -4,7 +4,7 @@ import os
 
 os.environ['PROTOCOL_BUFFERS_PYTHON_IMPLEMENTATION'] = 'python'
 model_repo = 'google/mt5-base'
-model_path = 'ss-translation.pt'
+model_path = '"/home/ubuntu/model/translation.pt"'
 max_seq_len = 128
 
 LANG_TOKEN_MAPPING = {
