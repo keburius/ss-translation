@@ -3,10 +3,7 @@ from transformers import AutoTokenizer, AutoModelForSeq2SeqLM
 
 # model_path_local = '/Users/keburius/Desktop/NLP/Models/ss-translation.pt'
 # model_path_server = '/home/ubuntu/model/ss-translation.pt'
-<<<<<<< HEAD
-=======
 
->>>>>>> 77dc6525baa697f94bf85706ec4ee9b685299d7f
 
 class TranslationModel:
     def __init__(self, model_repo='google/mt5-base', model_path='/home/ubuntu/model/ss-translation.pt'):
