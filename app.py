@@ -1,7 +1,9 @@
 from flask import Flask, jsonify, request
+from flask_cors import CORS
 from model import TranslationModel
 
 app = Flask(__name__)
+CORS(app)
 
 # Initialize the TranslationModel class and keep it in memory.
 translation_model = TranslationModel()
@@ -26,3 +28,4 @@ def index():
 
 if __name__ == '__main__':
     app.run()
+

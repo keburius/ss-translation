@@ -1,13 +1,12 @@
 import torch
 from transformers import AutoTokenizer, AutoModelForSeq2SeqLM
 
-# model_path = '/Users/keburius/Desktop/NLP/Models/ss-translation.pt'
+# model_path_local = '/Users/keburius/Desktop/NLP/Models/ss-translation.pt'
+# model_path_server = '/home/ubuntu/model/ss-translation.pt'
 
 
 class TranslationModel:
-    def __init__(self, model_repo='google/mt5-base', model_path='/Users/keburius/Desktop/NLP/Models/ss-translation.pt'):
-        self.device = torch.device('cuda' if torch.cuda.is_available() else 'cpu')
-
+    def __init__(self, model_repo='google/mt5-base', model_path='/home/ubuntu/model/ss-translation.pt'):
         self.LANG_TOKEN_MAPPING = {
             'DescriptionEn': '<en>',
             'DescriptionGe': '<ka>',
@@ -16,14 +15,14 @@ class TranslationModel:
 
         self.tokenizer = AutoTokenizer.from_pretrained(model_repo, use_fast=False)
 
-        self.model = AutoModelForSeq2SeqLM.from_pretrained(model_repo, config={'max_new_tokens': 128}).to(self.device)
+        self.model = AutoModelForSeq2SeqLM.from_pretrained(model_repo, config={'max_new_tokens': 128}).cuda()
         self.model.config.max_new_tokens = 128
 
         special_tokens_dict = {'additional_special_tokens': list(self.LANG_TOKEN_MAPPING.values())}
         self.tokenizer.add_special_tokens(special_tokens_dict)
         self.model.resize_token_embeddings(len(self.tokenizer))
 
-        self.model.load_state_dict(torch.load(model_path, map_location=self.device))
+        self.model.load_state_dict(torch.load(model_path))
 
     def encode_input_str(self, text, target_lang, seq_len):
         target_lang_token = self.LANG_TOKEN_MAPPING[target_lang]
@@ -45,14 +44,13 @@ class TranslationModel:
             target_lang=output_language,
             seq_len=512,
         )
-        input_ids = input_ids.unsqueeze(0).to(self.device)
+        input_ids = input_ids.unsqueeze(0).cuda()
 
         output_tokens = self.model.generate(
             input_ids,
             num_beams=10,
             length_penalty=0.2
-        ).to(self.device)
+        ).cuda()
         predicted_translation = self.tokenizer.decode(output_tokens[0], skip_special_tokens=True)
 
         return predicted_translation
-
