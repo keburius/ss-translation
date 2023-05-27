@@ -1,8 +1,8 @@
 import torch
 from transformers import AutoTokenizer, AutoModelForSeq2SeqLM
 
-# model_path_local = '/Users/keburius/Desktop/NLP/Models/ss-translation.pt'
-# model_path_server = '/home/ubuntu/model/ss-translation.pt'
+# local_model_path = '/Users/keburius/Desktop/NLP/Models/ss-translation.pt'
+# server_model_path = '/home/ubuntu/model/ss-translation.pt'
 
 
 class TranslationModel:
