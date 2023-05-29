@@ -9,10 +9,10 @@ CORS(app)
 translation_model = TranslationModel()
 
 
-@app.route('/translate')
+@app.route('/translate', methods=['POST'])
 def translate():
-    input_text = request.args.get('text')
-    output_language = request.args.get('target_lang')
+    input_text = request.json.get('text')
+    output_language = request.json.get('target_lang')
 
     if input_text and output_language:
         predicted_translation = translation_model.translate_text(input_text, output_language)
@@ -28,4 +28,3 @@ def index():
 
 if __name__ == '__main__':
     app.run()
-
