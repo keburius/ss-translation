@@ -6,7 +6,7 @@ from transformers import AutoTokenizer, AutoModelForSeq2SeqLM
 
 
 class TranslationModel:
-    def __init__(self, model_repo='google/mt5-base', model_path='/home/ubuntu/model/ss-translation.pt'):
+    def __init__(self, model_repo='google/mt5-base', model_path='/home/ubuntu/model/ss-tr.pt'):
         self.LANG_TOKEN_MAPPING = {
             'DescriptionEn': '<en>',
             'DescriptionGe': '<ka>',
