@@ -15,8 +15,8 @@ def translate():
     output_language = request.json.get('target_lang')
 
     if input_text and output_language:
-        predicted_translation = translation_model.translate_text(input_text, output_language)
-        return jsonify({'translation': predicted_translation})
+        predicted_translation, confidence = translation_model.translate_text(input_text, output_language)
+        return jsonify({'translation': predicted_translation, 'confidence': confidence})
 
     return jsonify({'error': 'Invalid request or missing data'})
 
