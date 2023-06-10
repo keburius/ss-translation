@@ -7,6 +7,12 @@ import nltk
 
 
 def split_text(text):
+    point_added = False
+
+    if not text.endswith('.'):
+        text += '.'
+        point_added = True
+
     sentences = nltk.sent_tokenize(text)
     parts = []
     current_part = ''
@@ -23,7 +29,7 @@ def split_text(text):
     if current_part:
         parts.append(current_part.strip())
 
-    return parts
+    return parts, point_added
 
 
 class TranslationModel:
@@ -64,7 +70,7 @@ class TranslationModel:
         return input_ids[0]
 
     def translate_text(self, input_text, output_language):
-        parts = split_text(input_text)
+        parts, point_added = split_text(input_text)
         translated_parts = []
         confidence_scores = []
 
@@ -92,5 +98,8 @@ class TranslationModel:
 
         final_translation = ' '.join(translated_parts)
         overall_confidence = sum(confidence_scores) / len(confidence_scores)
+
+        if point_added and final_translation.endswith('.'):
+            final_translation = final_translation[:-1]
 
         return final_translation, overall_confidence
