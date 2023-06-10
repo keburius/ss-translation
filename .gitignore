@@ -1,3 +1,5 @@
 # Virtual environment
+gunicorn_errors.log
+__pycache__/
 venv/
 env/
