@@ -6,7 +6,6 @@ from model import TranslationModel
 from flask_cors import CORS
 
 
-
 # Load existing keys from .env file
 with open('.env', 'r') as f:
     lines = f.read().splitlines()
